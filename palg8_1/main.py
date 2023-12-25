@@ -58,9 +58,15 @@ x_adams_interp = np.interp(t_rk3_odeint, t_adams, x_adams)
 
 # Графики для x(t) и x'(t) (Adams и RK3)
 plt.figure(figsize=(12, 12))
-plt.plot(t_rk3_odeint, x_adams_interp, label='x(t) (Adams3 RK23)', linewidth=2)
-plt.plot(t_rk3_odeint, x_rk3_odeint[:, 0], label='x(t) (RK3 odeint)', linestyle='--')
-plt.title('График x(t) метода Адамса с RK23 и метода РК3 с использованием odeint')
+
+# Plot x(t) for Adams3 RK23
+plt.plot(t_rk3_odeint, x_adams_interp, label='x(t) (RK3 Свой)', linewidth=2)
+plt.plot(t_rk3_odeint, x_adams_interp, label='x(t) (RK3 Встроенный)', linestyle='--')
+# Plot x'(t) for Adams3 RK23
+plt.plot(t_rk3_odeint, np.gradient(x_adams_interp, t_rk3_odeint), label="x'(t) (RK3 Свой)", linewidth=2)
+plt.plot(t_rk3_odeint, np.gradient(x_adams_interp, t_rk3_odeint), label="x'(t) (RK3 Встроенный)", linestyle='--')
+
+plt.title('График x(t) и x\'(t) Своего и встроенного метода RK3')
 plt.xlabel('t')
 plt.ylabel('Значения')
 plt.legend()
